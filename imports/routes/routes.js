@@ -31,6 +31,13 @@ export const routes = (
           <Redirect to="/"/>
         )
       )}/>
+      <Route path="/dashboard/:id" render={() => (
+        Meteor.userId() ? (
+          <Dashboard/>
+        ) : (
+          <Redirect to="/"/>
+        )
+      )}/>
       <Route component={NotFound}/>
     </Switch>
   </Router>
