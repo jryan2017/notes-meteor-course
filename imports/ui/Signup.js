@@ -1,8 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import { Accounts } from 'meteor/accounts-base';
+import { createContainer } from 'meteor/react-meteor-data';
 
-class Signup extends React.Component {
+export class Signup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,7 +21,7 @@ class Signup extends React.Component {
       return this.setState({error: 'Password must be more than 8 characters long'});
     }
     
-    Accounts.createUser({email, password}, (err) => {
+    this.props.createUser({email, password}, (err) => {
       if (err) {
         this.setState({error: err.reason});
         console.log(err);
@@ -44,11 +46,21 @@ class Signup extends React.Component {
             <button className="button">Create Account</button>
           </form>
           
-          <Link to="/">Have an account?</Link>
+          {/*<Link to="/">Have an account?</Link>*/}
         </div>
       </div>
     );
   }
 }
 
-export default withRouter(Signup);
+Signup.propTypes = {
+  createUser: PropTypes.func.isRequired
+}
+
+export default createContainer(() => {
+    return {
+      createUser: Accounts.createUser
+    }
+}, withRouter(Signup));
+
+//export default withRouter(Signup);

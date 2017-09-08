@@ -1,9 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import { Accounts } from 'meteor/accounts-base';
 import { withRouter } from 'react-router-dom';
+import { createContainer } from 'meteor/react-meteor-data';
 
-class PrivateHeader extends React.Component {
+export class PrivateHeader extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -25,8 +26,14 @@ class PrivateHeader extends React.Component {
 }
 
 PrivateHeader.propTypes = {
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    handleLogout: PropTypes.func
 };
 
-export default withRouter(PrivateHeader);
+export default createContainer(() => {
+    return {
+        
+    };
+}, withRouter(PrivateHeader));
 
+//export default withRouter(PrivateHeader);
