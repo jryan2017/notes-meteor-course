@@ -24,7 +24,7 @@ export const routes = (
           <Signup/>
         )
       )}/>
-      <Route path="/dashboard" render={() => (
+      <Route exact path="/dashboard" render={() => (
         Meteor.userId() ? (
           <Dashboard/>
         ) : (
