@@ -4,6 +4,8 @@ import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Session } from 'meteor/session';
 
+import { Scrollbars } from 'react-custom-scrollbars';
+
 import { Notes } from '../api/notes';
 import NoteListHeader from './NoteListHeader';
 import NoteListItem from './NoteListItem';
@@ -14,10 +16,11 @@ export const NoteList = (props) => {
         <div className="item-list">
             <NoteListHeader/>
             { props.notes.length === 0 ? <NoteListEmptyItem/> : undefined }
-            
-            {props.notes.map((note) => {
-                return <NoteListItem key={note._id} note={note}/>;
-            })}
+            <Scrollbars style={{ height: '80%' }}>
+                {props.notes.map((note) => {
+                    return <NoteListItem key={note._id} note={note}/>;
+                })}
+            </Scrollbars>
         </div>
     );
 };
